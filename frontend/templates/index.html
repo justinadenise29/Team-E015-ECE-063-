@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>StockFlow | Inventory Control</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brandmark">S</div>
+        <div><b>StockFlow</b><small>INVENTORY CONTROL</small></div>
+      </div>
+      <div class="nav-label">WORKSPACE</div>
+      <button class="nav active" data-view="overview">
+        ▦ <span>Overview</span></button
+      ><button class="nav" data-view="inventory">
+        ▤ <span>Inventory</span></button
+      ><button class="nav" data-view="transfers">
+        ⇄ <span>Stock transfers</span></button
+      ><button class="nav" data-view="reorders">
+        ↗ <span>Supplier reorders</span></button
+      ><button class="nav" data-view="reports">▧ <span>Reports</span></button>
+      <div class="sidebar-bottom">
+        <div class="connection"><i></i><span>Backend connected</span></div>
+        <small>ECE-063 · Team E015</small>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <div class="eyebrow">ELECTRONICS RETAIL CHAIN</div>
+          <h1 id="pageTitle">Overview</h1>
+        </div>
+        <div class="top-actions">
+          <span class="date-chip" id="today">18 Nov 2026</span
+          ><button class="btn btn-light" onclick="resetData()">
+            ↻ Reset data</button
+          ><button class="btn btn-primary" onclick="runSample()">
+            ▶ Run sample workflow
+          </button>
+        </div>
+      </header>
+      <section id="overview" class="view">
+        <div class="welcome">
+          <div>
+            <div class="eyebrow light">LIVE INVENTORY MONITORING</div>
+            <h2>Good day. Here's your stock overview.</h2>
+            <p>
+              Monitor branch inventory, balance stock and manage replenishment
+              from one place.
+            </p>
+          </div>
+          <div class="welcome-icon">▥</div>
+        </div>
+        <div class="metrics" id="metrics"></div>
+        <div class="content-grid">
+          <div class="panel">
+            <div class="panel-head">
+              <div>
+                <h3>Inventory by branch</h3>
+                <p>Current stock units across retail locations</p>
+              </div>
+              <button class="text-btn" onclick="showView('inventory')">
+                View inventory →
+              </button>
+            </div>
+            <div id="branchBars" class="branch-bars"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head">
+              <div>
+                <h3>Stock health</h3>
+                <p>Current status by stock line</p>
+              </div>
+            </div>
+            <div id="health" class="health"></div>
+          </div>
+        </div>
+        <div class="panel table-panel">
+          <div class="panel-head">
+            <div>
+              <h3>Stock requiring attention</h3>
+              <p>Items currently below their minimum stock level</p>
+            </div>
+            <button class="text-btn" onclick="showView('inventory')">
+              See all →
+            </button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>SKU / PRODUCT</th>
+                  <th>BRANCH</th>
+                  <th>AVAILABLE</th>
+                  <th>MINIMUM</th>
+                  <th>STATUS</th>
+                </tr>
+              </thead>
+              <tbody id="attentionRows"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <section id="inventory" class="view hidden">
+        <div class="toolbar">
+          <input
+            id="search"
+            placeholder="Search SKU or product name..."
+            oninput="loadStock()"
+          /><select id="branchFilter" onchange="loadStock()">
+            <option value="">All branches</option></select
+          ><select id="statusFilter" onchange="loadStock()">
+            <option value="">All statuses</option>
+            <option>SHORT</option>
+            <option>SURPLUS</option>
+            <option>OK</option>
+          </select>
+        </div>
+        <div class="panel table-panel">
+          <div class="panel-head">
+            <div>
+              <h3>Inventory records</h3>
+              <p id="stockCount">All branch and product combinations</p>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>SKU</th>
+                  <th>PRODUCT</th>
+                  <th>BRANCH</th>
+                  <th>STOCK</th>
+                  <th>MIN</th>
+                  <th>MAX</th>
+                  <th>UNIT COST</th>
+                  <th>STATUS</th>
+                </tr>
+              </thead>
+              <tbody id="stockRows"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <section id="transfers" class="view hidden">
+        <div class="panel table-panel">
+          <div class="panel-head">
+            <div>
+              <h3>Stock transfer history</h3>
+              <p>
+                Branch-to-branch transfers generated by the replenishment engine
+              </p>
+            </div>
+            <button
+              class="btn btn-light"
+              onclick="downloadReport('transfers.csv')"
+            >
+              ↓ Export CSV
+            </button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>RUN DATE</th>
+                  <th>SKU</th>
+                  <th>FROM</th>
+                  <th>TO</th>
+                  <th>QUANTITY</th>
+                  <th>DISTANCE</th>
+                  <th>VALUE</th>
+                </tr>
+              </thead>
+              <tbody id="transferRows"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <section id="reorders" class="view hidden">
+        <div class="panel action-panel">
+          <div>
+            <h3>Receive supplier delivery</h3>
+            <p>
+              Receiving a delivery increases the branch stock and closes the
+              open reorder.
+            </p>
+          </div>
+          <div class="inline-form">
+            <input id="receiveId" placeholder="Reorder ID e.g. RO-0007" /><input
+              id="receiveDate"
+              type="date"
+              value="2026-11-18"
+            /><button class="btn btn-primary" onclick="receiveOrder()">
+              Receive stock
+            </button>
+          </div>
+        </div>
+        <div class="panel table-panel">
+          <div class="panel-head">
+            <div>
+              <h3>Open supplier reorders</h3>
+              <p>Orders awaiting supplier delivery</p>
+            </div>
+            <button
+              class="btn btn-light"
+              onclick="downloadReport('reorders.csv')"
+            >
+              ↓ Export report
+            </button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>REORDER ID</th>
+                  <th>BRANCH</th>
+                  <th>SKU</th>
+                  <th>QUANTITY</th>
+                  <th>RAISED DATE</th>
+                  <th>STATUS</th>
+                </tr>
+              </thead>
+              <tbody id="reorderRows"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel action-panel">
+          <div>
+            <h3>Post daily sales</h3>
+            <p>Deduct sales recorded for a selected date from current stock.</p>
+          </div>
+          <div class="inline-form">
+            <input id="salesDate" type="date" value="2026-10-12" /><button
+              class="btn btn-primary"
+              onclick="postSales()"
+            >
+              Post sales
+            </button>
+          </div>
+        </div>
+        <div class="panel action-panel">
+          <div>
+            <h3>Run replenishment engine</h3>
+            <p>
+              Analyze the previous seven days, transfer available surplus and
+              calculate supplier orders.
+            </p>
+          </div>
+          <div class="inline-form">
+            <input id="runDate" type="date" value="2026-10-12" /><button
+              class="btn btn-primary"
+              onclick="runReplenish()"
+            >
+              Run engine
+            </button>
+          </div>
+        </div>
+      </section>
+      <section id="reports" class="view hidden">
+        <div class="report-grid">
+          <div class="report-card">
+            <div class="report-icon">⇄</div>
+            <h3>Transfers report</h3>
+            <p>Every planned branch-to-branch stock movement.</p>
+            <button
+              class="btn btn-light"
+              onclick="downloadReport('transfers.csv')"
+            >
+              Download CSV ↓
+            </button>
+          </div>
+          <div class="report-card">
+            <div class="report-icon">↗</div>
+            <h3>Reorders report</h3>
+            <p>Supplier orders and skipped open-reorder cases.</p>
+            <button
+              class="btn btn-light"
+              onclick="downloadReport('reorders.csv')"
+            >
+              Download CSV ↓
+            </button>
+          </div>
+          <div class="report-card">
+            <div class="report-icon">▤</div>
+            <h3>Stock position</h3>
+            <p>Opening stock, transfers, closing stock and status.</p>
+            <button
+              class="btn btn-light"
+              onclick="downloadReport('stock_position.csv')"
+            >
+              Download CSV ↓
+            </button>
+          </div>
+          <div class="report-card">
+            <div class="report-icon">⚠</div>
+            <h3>Error log</h3>
+            <p>Rejected commands and their reasons.</p>
+            <button
+              class="btn btn-light"
+              onclick="downloadReport('errors.csv')"
+            >
+              Download CSV ↓
+            </button>
+          </div>
+        </div>
+      </section>
+      <div id="toast" class="toast"></div>
+      <footer>
+        StockFlow · ECE-063 Stock Transfer & Reorder Engine
+        <span>Python + Flask API</span>
+      </footer>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>

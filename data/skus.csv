@@ -1,0 +1,81 @@
+sku_code,description,unit_cost,pack_size
+SKU-0001,Resistor 1k 1/4W,0.50,100
+SKU-0002,Resistor 10k 1/4W,0.50,100
+SKU-0003,Ceramic Cap 100nF,1.00,100
+SKU-0004,Electrolytic 470uF 25V,6.00,10
+SKU-0005,LED 5mm Red,1.50,50
+SKU-0006,1N4007 Diode,1.20,50
+SKU-0007,BC547 Transistor,2.00,50
+SKU-0008,LM7805 Regulator,18.00,10
+SKU-0009,NE555 Timer,12.00,10
+SKU-0010,LM358 Op-Amp,14.00,10
+SKU-0011,ATmega328P DIP,260.00,5
+SKU-0012,Arduino Uno R3,650.00,1
+SKU-0013,ESP32 DevKit,480.00,5
+SKU-0014,NodeMCU ESP8266,320.00,5
+SKU-0015,Raspberry Pi Pico,420.00,5
+SKU-0016,HC-05 Bluetooth,290.00,5
+SKU-0017,DHT11 Sensor,95.00,10
+SKU-0018,HC-SR04 Ultrasonic,85.00,10
+SKU-0019,IR Sensor Module,45.00,10
+SKU-0020,PIR Sensor HC-SR501,110.00,10
+SKU-0021,MPU6050 IMU,180.00,5
+SKU-0022,Relay Module 5V 1ch,60.00,10
+SKU-0023,L298N Motor Driver,190.00,5
+SKU-0024,SG90 Servo,120.00,10
+SKU-0025,16x2 LCD,140.00,5
+SKU-0026,OLED 0.96 I2C,230.00,5
+SKU-0027,Breadboard 830,90.00,10
+SKU-0028,Jumper Wire M-M 40,70.00,10
+SKU-0029,Header Pins 40,12.00,50
+SKU-0030,USB Cable A-B,55.00,10
+SKU-0031,Li-ion 18650 Cell,210.00,10
+SKU-0032,9V Battery,40.00,10
+SKU-0033,Soldering Wire 50g,160.00,5
+SKU-0034,Multimeter DT830,380.00,1
+SKU-0035,Potentiometer 10k,9.00,50
+SKU-0036,Tactile Switch,1.50,100
+SKU-0037,Crystal 16MHz,6.00,50
+SKU-0038,IC Base 28 pin,5.00,50
+SKU-0039,PCB 10x15 Dot,35.00,10
+SKU-0040,Heat Sink TO-220,8.00,50
+SKU-0041,Resistor 1k 1/4W - Grade B,0.42,100
+SKU-0042,Resistor 10k 1/4W - Grade B,0.42,100
+SKU-0043,Ceramic Cap 100nF - Grade B,0.85,100
+SKU-0044,Electrolytic 470uF 25V - Grade B,5.10,10
+SKU-0045,LED 5mm Red - Grade B,1.27,50
+SKU-0046,1N4007 Diode - Grade B,1.02,50
+SKU-0047,BC547 Transistor - Grade B,1.70,50
+SKU-0048,LM7805 Regulator - Grade B,15.30,10
+SKU-0049,NE555 Timer - Grade B,10.20,10
+SKU-0050,LM358 Op-Amp - Grade B,11.90,10
+SKU-0051,ATmega328P DIP - Grade B,221.00,5
+SKU-0052,Arduino Uno R3 - Grade B,552.50,1
+SKU-0053,ESP32 DevKit - Grade B,408.00,5
+SKU-0054,NodeMCU ESP8266 - Grade B,272.00,5
+SKU-0055,Raspberry Pi Pico - Grade B,357.00,5
+SKU-0056,HC-05 Bluetooth - Grade B,246.50,5
+SKU-0057,DHT11 Sensor - Grade B,80.75,10
+SKU-0058,HC-SR04 Ultrasonic - Grade B,72.25,10
+SKU-0059,IR Sensor Module - Grade B,38.25,10
+SKU-0060,PIR Sensor HC-SR501 - Grade B,93.50,10
+SKU-0061,MPU6050 IMU - Grade B,153.00,5
+SKU-0062,Relay Module 5V 1ch - Grade B,51.00,10
+SKU-0063,L298N Motor Driver - Grade B,161.50,5
+SKU-0064,SG90 Servo - Grade B,102.00,10
+SKU-0065,16x2 LCD - Grade B,119.00,5
+SKU-0066,OLED 0.96 I2C - Grade B,195.50,5
+SKU-0067,Breadboard 830 - Grade B,76.50,10
+SKU-0068,Jumper Wire M-M 40 - Grade B,59.50,10
+SKU-0069,Header Pins 40 - Grade B,10.20,50
+SKU-0070,USB Cable A-B - Grade B,46.75,10
+SKU-0071,Li-ion 18650 Cell - Grade B,178.50,10
+SKU-0072,9V Battery - Grade B,34.00,10
+SKU-0073,Soldering Wire 50g - Grade B,136.00,5
+SKU-0074,Multimeter DT830 - Grade B,323.00,1
+SKU-0075,Potentiometer 10k - Grade B,7.65,50
+SKU-0076,Tactile Switch - Grade B,1.27,100
+SKU-0077,Crystal 16MHz - Grade B,5.10,50
+SKU-0078,IC Base 28 pin - Grade B,4.25,50
+SKU-0079,PCB 10x15 Dot - Grade B,29.75,10
+SKU-0080,Heat Sink TO-220 - Grade B,6.80,50
